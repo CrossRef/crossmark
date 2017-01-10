@@ -1,0 +1,444 @@
+@charset "utf-8";
+
+/* Define tag defaults */
+/* Since we're assigning form elements custom borders, I won't isolate input, textarea, etc from the border: 0 style */
+* {
+	border: 0;
+	margin: 0;
+	padding: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+/* Generic body */
+body {
+	line-height: 1;
+	color: black;
+	background: white;
+}
+
+/* CrossMark Dialog Box body */
+body.cm {
+	background-color: #999;
+}
+
+/* Create a custom style for keyboard navigators */
+:focus {
+/*	outline: 0; */
+}
+
+/* Mouse users don't need an outline  */
+a:hover,
+a:active {
+	outline: 0;
+}
+
+ol, ul {
+    list-style: none outside none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+thead td {
+	vertical-align: bottom;
+}
+
+tbody td {
+	vertical-align: top;
+}
+
+caption, th, td {
+	text-align: left;
+	font-weight: normal;
+}
+
+textarea {
+}
+
+/* Tag and Class Defaults */
+
+a {
+	color: #006699;
+	text-decoration: none;
+}
+
+a:visited {
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+h1 {
+	font-family: Trebuchet MS, Trebuchet, Helvetica, sans-serif;
+	font-size: 24px;
+	font-weight: bold;
+	line-height: 1.2;
+	padding-top: 7px;
+}
+
+h2 {
+	font-family: Trebuchet MS, Trebuchet, Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 1.2;
+	padding-top: 7px;
+}
+
+h3 {
+	font-family: Trebuchet MS, Trebuchet, Helvetica, sans-serif;
+	font-size: 15px;
+	font-weight: bold;
+	line-height: 1.2;
+	padding-top: 7px;
+}
+
+li {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 1.5;
+	padding-top: 7px;
+	color: #333;
+}
+
+p {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 1.5;
+	padding-top: 7px;
+	color: #333;
+}
+
+strong {
+	font-weight: bold;
+}
+
+/* Data */
+
+div.cm-data {
+	height: 255px;
+	padding-top: 5px;
+	padding-bottom: 9px;
+	width: 100%;
+	overflow: auto;
+}
+
+/* Record */
+
+div.cm-record {
+	height: 392px;
+	padding-top: 25px;
+	padding-bottom: 9px;
+	width: 100%;
+	overflow: auto;
+}
+
+/* Corrections and Fields Blocks */
+
+div.cm-group,
+div.cm-field,
+div.cm-correction {
+	padding-bottom: 7px;
+	border-bottom: 1px solid #ccc;
+}
+
+div.cm-group div.cm-field {
+	padding-bottom: 0;
+	border-bottom: 0;
+}
+
+div.cm-field p,
+div.cm-correction p {
+	padding-top: 0;
+}
+
+/* Status Block */
+
+div.cm-status {
+	position: relative;
+	height: 130px;
+	background-color: #efefef;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	margin: 25px 0 0 0;
+}
+
+div.cm-status h1 {
+	padding: 37px 20px 0 155px;
+}
+
+div.cm-status p {
+	font-family: Trebuchet MS, Trebuchet, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #666;
+	padding: 6px 30px 0 155px;
+}
+
+.cm-status-icon {
+	display: block;
+	position: absolute;
+	top: 21px;
+	left: 50px;
+	height: 90px;
+	width: 75px;
+	text-indent: -99999px;
+	background: transparent url({{consts.cdn-url}}/images/icons_90.png) 0 0 no-repeat;
+}
+
+.cm-status-icon-current {
+	background-position: 0 0;
+}
+
+.cm-status-icon-updates {
+	background-position: -75px 0;
+}
+
+.cm-status-icon-unknown {
+	background-position: -150px 0;
+}
+
+/* Explanation Icon */
+
+.icon-explanation {
+	vertical-align: middle;
+}
+
+/* jQuery UI Tabs */
+
+#cm-tabs {
+	position: relative;
+	padding-top: 31px;
+	width: 100%;
+	background: transparent url({{consts.cdn-url}}/images/bg_tab_block.png) left 76px no-repeat;
+	min-height: 77px;
+}
+
+.ui-tabs .ui-tabs-nav {
+	display: block;
+	height: 46px;
+	padding-left: 254px;
+}
+
+.ui-tabs .ui-tabs-nav li {
+	display: block;
+	font-family: Trebuchet MS, Trebuchet, Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+    float: left;
+	width: 111px;
+	height: 46px;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    white-space: nowrap;
+	margin-right: -1px;
+}
+
+.ui-tabs .ui-tabs-nav li a {
+	color: #000;
+	display: block;
+	text-align: center;
+	line-height: 49px;
+	width: 111px;
+	height: 46px;
+	background: url({{consts.cdn-url}}/images/bg_tab.png) left top no-repeat;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a,
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a:hover {
+	background: transparent url({{consts.cdn-url}}/images/bg_tab_selected.png) left top no-repeat;
+}
+
+.ui-tabs .ui-tabs-nav li a:hover {
+	text-decoration: none;
+	background: transparent url({{consts.cdn-url}}/images/bg_tab_over.png) left top no-repeat;
+}
+
+.ui-tabs .ui-tabs-hide {
+    display: none !important;
+}
+
+.ui-tabs .ui-tabs-panel {
+    display: block;
+}
+
+.ui-widget-content {
+	clear: both;
+}
+
+/* Footer variations */
+
+#cm-footer p {
+	font-family: Trebuchet MS, Trebuchet, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #ccc;
+}
+
+#cm-footer a {
+	font-weight: bold;
+	color: #fff;
+}
+
+/* Header */
+
+#cm-logo {
+	position: absolute;
+	top: 18px;
+	left: 23px;
+	width: 162px;
+	height: 64px;
+	z-index: 100;
+}
+
+/* Layout classes */
+
+#cm-content {
+	position: relative;
+	background: #fff url({{consts.cdn-url}}/images/bg_dialog_header.png) top left repeat-x;
+	height: 503px;
+	width: 542px;
+	margin: 4px 0 0 4px;
+}
+
+#cm-content div.cm-bounds {
+	padding: 0 25px 0 25px;
+}
+
+#cm-footer {
+	position: relative;
+	width: 100%;
+	height: 43px;
+	background: #666 url({{consts.cdn-url}}/images/bg_dialog_footer.png) bottom left repeat-x;	
+}
+
+#cm-footer div.cm-bounds {
+	padding: 0 25px 0 25px;
+}
+
+/* jQuery UI Theming */
+
+/* Modal Overlay */
+.ui-widget-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: transparent url({{consts.cdn-url}}/images/bg_overlay.png) top left repeat;
+	width: 100%;
+	height: 100%;
+}
+
+.ui-dialog {
+	position: absolute;
+	background: #666 url({{consts.cdn-url}}/images/bg_dialog_footer.png) bottom left repeat-x;
+	width: 550px;
+	height: 550px;
+	overflow: visible;
+}
+
+.ui-dialog-titlebar {
+	position: absolute;
+	top: -14px;
+	left: 0;
+	width: 550px;
+	height: 50px;
+	z-index: 1000;
+}
+
+.ui-draggable .ui-dialog-titlebar { cursor: move; }
+
+.ui-dialog-titlebar-close {
+	position: absolute;
+	top: 0;
+	right: -14px;
+	width: 34px;
+	height: 34px;
+	background: url({{consts.cdn-url}}/images/icons_34.png) top left no-repeat;
+	background-position: 0 0;
+	text-indent: -99999px;
+}
+
+.ui-dialog-titlebar-close:hover {
+	background-position: -34px 0;
+}
+
+.ui-dialog #no-iframe,
+.ui-dialog iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 550px;
+	height: 550px;
+	z-index: 100;
+	border: 0;
+	margin: 0;
+	padding: 0;
+	border-collapse: collapse;	
+}
+
+.ui-dialog #no-iframe {
+	background-color: #999;
+}
+
+.ui-dialog-content {
+	position: relative;
+	background-color: #fff;
+}
+
+/* jQuery UI Resizable 1.8.7
+ *
+ * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Resizable#theming
+ */
+.ui-resizable { position: relative;}
+.ui-resizable-handle { position: absolute; font-size: 0.1px; z-index: 99999; display: block;}
+.ui-resizable-disabled .ui-resizable-handle, .ui-resizable-autohide .ui-resizable-handle { display: none; }
+.ui-resizable-n { cursor: n-resize; height: 7px; width: 100%; top: -5px; right: 14px; }
+.ui-resizable-s { cursor: s-resize; height: 7px; width: 100%; bottom: -5px; left: 0; }
+.ui-resizable-e { cursor: e-resize; width: 7px; right: -5px; top: 14px; height: 100%; }
+.ui-resizable-w { cursor: w-resize; width: 7px; left: -5px; top: 0; height: 100%; }
+.ui-resizable-se { cursor: se-resize; width: 20px; height: 20px; right: -5px; bottom: -5px; }
+.ui-resizable-sw { cursor: sw-resize; width: 9px; height: 9px; left: -5px; bottom: -5px; }
+.ui-resizable-nw { cursor: nw-resize; width: 9px; height: 9px; left: -5px; top: -5px; }
+/* .ui-resizable-ne { cursor: ne-resize; width: 9px; height: 9px; right: -5px; top: -5px;} */
+
+.ui-icon-grip-diagonal-se {
+	background: url({{consts.cdn-url}}/images/icons_34.png) top left no-repeat;
+	background-position: -84px -16px;
+}
+
+.ui-icon-grip-diagonal-se:hover {
+	background-position: 118px -16px;
+}
+
+div.cm-data p {
+	width: 472px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+div.cm-record h2,
+div.cm-record h3 {
+	width: 472px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+div.cm-record p {
+	width: 472px;
+}
+
+
+

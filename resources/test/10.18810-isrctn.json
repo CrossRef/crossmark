@@ -1,0 +1,91 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2016,
+          11,
+          11
+        ]
+      ],
+      "date-time": "2016-11-11T05:51:00Z",
+      "timestamp": 1478843460148
+    },
+    "reference-count": 0,
+    "publisher": null,
+    "content-domain": {
+      "domain": [],
+      "crossmark-restriction": false
+    },
+    "short-container-title": [],
+    "cited-count": 0,
+    "published-print": {
+      "date-parts": [
+        [
+          2015,
+          10,
+          13
+        ]
+      ]
+    },
+    "DOI": "10.18810/isrctn",
+    "type": "component",
+    "created": {
+      "date-parts": [
+        [
+          2016,
+          1,
+          4
+        ]
+      ],
+      "date-time": "2016-01-04T18:36:51Z",
+      "timestamp": 1451932611000
+    },
+    "source": "CrossRef",
+    "title": [
+      "ISRCTN.org"
+    ],
+    "prefix": "http://id.crossref.org/prefix/10.18810",
+    "member": null,
+    "container-title": [],
+    "original-title": [],
+    "link": [
+      {
+        "URL": "http://www.isrctn.com/",
+        "content-type": "unspecified",
+        "content-version": "vor",
+        "intended-application": "unspecified"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2016,
+          1,
+          22
+        ]
+      ],
+      "date-time": "2016-01-22T14:08:09Z",
+      "timestamp": 1453471689000
+    },
+    "score": 1,
+    "subtitle": [
+      "ISRCTN"
+    ],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2015,
+          10,
+          13
+        ]
+      ]
+    },
+    "URL": "http://dx.doi.org/10.18810/isrctn",
+    "citing-count": 0
+  }
+}

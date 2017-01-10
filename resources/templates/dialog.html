@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title>Crossmark</title>
+        <link href="{{consts.cdn-url}}/main.css" rel="stylesheet">
+        <link rel="apple-touch-icon" sizes="57x57" href="https://assets.crossref.org/favicon/apple-touch-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="https://assets.crossref.org/favicon/apple-touch-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="https://assets.crossref.org/favicon/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="https://assets.crossref.org/favicon/apple-touch-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="https://assets.crossref.org/favicon/apple-touch-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="https://assets.crossref.org/favicon/apple-touch-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="https://assets.crossref.org/favicon/apple-touch-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="https://assets.crossref.org/favicon/apple-touch-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="https://assets.crossref.org/favicon/apple-touch-icon-180x180.png">
+        <link rel="icon" type="image/png" href="https://assets.crossref.org/favicon/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="https://assets.crossref.org/favicon/android-chrome-192x192.png" sizes="192x192">
+        <link rel="icon" type="image/png" href="https://assets.crossref.org/favicon/favicon-96x96.png" sizes="96x96">
+        <link rel="icon" type="image/png" href="https://assets.crossref.org/favicon/favicon-16x16.png" sizes="16x16">
+        <link rel="manifest" href="https://assets.crossref.org/favicon/manifest.json">
+        <link rel="mask-icon" href="https://assets.crossref.org/favicon/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="apple-mobile-web-app-title" content="Crossref">
+        <meta name="application-name" content="Crossref">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-TileImage" content="https://assets.crossref.org/favicon/mstile-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+    </head>
+
+    <body>
+        <section class="page">
+{% if show-header %}
+            <div class="header">
+                <img class="header__logo" src="{{consts.cdn-url}}/images/logo-crossmark.svg">
+            </div>
+{% endif %}
+
+{% comment %}No update policy means no Crossmark. Could also mean broken or incorrect DOI.{% endcomment %}
+{% if not update-policy %}
+<section class="document-status document-status--retraction">
+    <header class="document-status__header">
+        <h1 class="document-status__title">
+            <span class="document-status__title__text">CrossMark data for this content is not currently available.</span>
+        </h1>
+    </header>
+</section>
+{% else %}
+
+{% if has-update %}
+{% for update in updates %}
+{% if update.error? %}
+                    <section class="document-status document-status--retraction">
+                        <header class="document-status__header">
+                            <h1 class="document-status__title">
+                                <span class="document-status__title__text">{{update.headline}}</span>
+                                <span class="document-status__title__subtext">{{update.label}} dated {{update.date}}</span>
+                            </h1>
+                            <h2 class="document-status__subtitle">
+                                <span class="document-status__subtitle__text">Click to view {{update.label}}:</span>
+                                <a href="{{update.doi}}" class="document-status__subtitle__link" target="_blank">{{update.doi}}</a>
+                            </h2>
+                        </header>
+                    </section>
+{% else %}
+                    <section class="document-status document-status--correction">
+                        <header class="document-status__header">
+                            <h1 class="document-status__title">
+                                <span class="document-status__title__text">{{update.headline}}</span>
+                                <span class="document-status__title__subtext">{{update.label}} dated {{update.date}}</span>
+                            </h1>
+                            <h2 class="document-status__subtitle">
+                                <span class="document-status__subtitle__text">Click to view {{update.label}}:</span>
+                                <a href="{{update.doi}}" class="document-status__subtitle__link" target="_blank">{{update.doi}}</a>
+                            </h2>
+                        </header>
+                    </section>
+{% endif %}
+{% endfor %}
+{% else %}
+                <section class="document-status document-status--current">
+                    <header class="document-status__header">
+                        <h1 class="document-status__title">
+                            <span class="document-status__title__text">Document is current</span>
+                        </h1>
+                        <h2 class="document-status__subtitle">
+                            <span class="document-status__subtitle__text">Any future updates will be listed below</span>
+                        </h2>
+                    </header>
+                </section>
+{% endif %}
+            <section class="document-metadata">
+              {% if title %}<p class="document-metadata__text">{{title}}</p>{% endif %}
+                <p class="document-metadata__text">
+                    Crossref DOI link:
+                    <a href="{{doi}}" target="_blank">{{doi}}</a>
+                </p>
+                <p class="document-metadata__text">Published: {{published-date}}</p>
+                <p class="document-metadata__text">Update policy: <a href="{{update-policy}}" target="_blank">{{update-policy}}</a></p>
+            </section>
+            <ul class="records">
+
+{% if has-author %}
+                <li class="records__item">
+                    <a class="records__item__link" role="button" data-toggle="author-collapse" aria-expanded="false" aria-controls="author-collapse">Authors</a>
+                    <div class="records__item__content" id="author-collapse">
+                        <div class="records__item__content__block">
+                          {% for auth in author %}
+                          <p class="records__item__content__text">{{auth.family}}, {{auth.given}}
+                          {% if auth.ORCID %}
+                            <a href="{{auth.ORCID}}" target="_blank">{{auth.ORCID}}</a>
+                          {% else %}
+                            </p>
+                          {% endif %}
+                          {% endfor %}
+                        </div>
+                    </div>
+                </li>
+{% endif %}
+
+{% if has-clinical-trial-number %}
+                <li class="records__item">
+                    <a class="records__item__link" role="button" data-toggle="ctn-collapse" aria-expanded="false" aria-controls="ctn-collapse">Clinical Trials <sup>BETA</sup></a>
+                    <div class="records__item__content" id="ctn-collapse">
+                        <div class="records__item__content__block">
+                            <p class="records__item__content__text">Clinical trials referenced in this document:</p>
+                        </div>
+                        <div class="records__item__nested-content">
+                            {% for ctn in clinical-trial-number %}
+                            <a class="records__item__link" role="button" data-toggle="ctn-collapse-{{ctn.clinical-trial-number}}" aria-expanded="false" aria-controls="ctn-collapse-{{ctn.clinical-trial-number}}">{{ctn.clinical-trial-number}} at {{ctn.registry-name}}</a>
+                            <div class="records__item__content" id="ctn-collapse-{{ctn.clinical-trial-number}}">
+                                <div class="records__item__content__block">
+                                    <p class="records__item__content__text records__item__content__text--standfirst">Documents that mention this clinical trial</p>
+                                    {% for work in ctn.other-works %}
+                                    <p class="records__item__content__text">{{work.title}} {% if work.relation-type %}<sup>({{work.relation-type}})</sup>{% endif %}</a><br />
+                                    <a href="{{work.doi}}" target="_blank">{{work.doi}}</a></p>
+                                    <br />    
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endfor %}  
+                        </div>
+                    </div>
+                </li>
+{% endif %}
+
+{% if has-funder %}
+                <li class="records__item">
+                    <a class="records__item__link" role="button" data-toggle="funder-collapse" aria-expanded="false" aria-controls="funder-collapse">Funding</a>
+                    <div class="records__item__content" id="funder-collapse">
+                        <div class="records__item__content__block">
+                            <p class="records__item__content__text records__item__content__text--standfirst">Funding for this research was provided by:</p>
+                            {% for item in funder %}
+                            <p class="records__item__content__text">{{item.funder-name}} {% if item.award-numbers|not-empty %}({% for number in item.award-numbers %}{{number}}{% if not forloop.last %}, {% endif %}{% endfor %}){% endif %}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </li>
+{% endif %}
+
+{% if has-license %}
+                 <li class="records__item">
+                    <a class="records__item__link" role="button" data-toggle="license-collapse" aria-expanded="false" aria-controls="license-collapse">License Information</a>
+                    <div class="records__item__content" id="license-collapse">
+                        <div class="records__item__content__block">
+                          {% for item in license %}
+                            <p class="records__item__content__text"><a href="{{item.url}}" target="_blank">{{item.name}}</a> {% if item.start %} valid from {{item.start}} {% endif %}</p>
+                          {% endfor %}
+                        </div>
+                    </div>
+                </li>
+{% endif %}
+
+{% if has-extra-assertions %}
+                <li class="records__item">
+                  <a class="records__item__link" role="button" data-toggle="extra-collapse" aria-expanded="false" aria-controls="extra-collapse">More Information</a>
+                  <div class="records__item__content" id="extra-collapse">
+                    <div class="records__item__content__block">
+                    {%comment%}All assertions are in groups.{%endcomment%}
+
+                        {% for assertion-group in extra-assertion-groups %}
+                          <div class="records__item__content__group">
+                            {% comment %}There be no group label, e.g. for anonymous group{% endcomment %}
+                            
+                            {% if assertion-group.0 %}
+                            <p class="records__item__content__text records__item__content__text--standfirst">{{assertion-group.0}}</p>
+                            {% endif %}
+
+                            {% for assertion in assertion-group.1 %}
+                              <p class="records__item__content__text">
+                                {% if assertion.explanation.URL %}
+                                  <a href="{{assertion.explanation.URL}}" target="_blank">{{assertion.label}}</a>:
+                                {% else %}
+                                  {{assertion.label}}:
+                                {% endif %}
+                                {% if assertion.URL %}
+                                  <a href="{{assertion.URL}}" target="_blank">{{assertion.value}}</a>
+                                {% else %}
+                                  {{assertion.value}}
+                                {% endif %}
+                            </p>
+                          {% endfor %}
+                        </div>
+                        {% endfor %}
+
+                  </div>
+                  </div>
+              </li>
+{% endif %}
+
+
+            </ul>
+        </section>
+{% endif %}
+        <div class="footer">
+            <a class="footer-logo" href="http://www.crossref.org" target="_blank">
+                <img src="{{consts.cdn-url}}/images/logo-crossref.svg" alt="Crossref logo" width="80">
+            </a>
+            <span class="footer-link"><a href="http://crossmark.crossref.org/" target="_blank">About CrossMark</a></span>
+            {% if request.jwt-ok %}
+            <!-- Verified script OK. -->
+            {% else %}
+            <!-- Did not verify script. -->
+            {% endif %}
+        </div>
+
+        <script src="{{consts.cdn-url}}/script.js"></script>
+    </body>
+
+</html>

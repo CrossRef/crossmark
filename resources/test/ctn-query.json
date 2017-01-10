@@ -1,0 +1,40 @@
+{
+  "status": "ok",
+  "message-type": "work-list",
+  "message-version": "1.0.0",
+  "message": {
+    "facets": {},
+    "total-results": 2,
+    "items": [
+      {
+        "DOI": "10.5555/up-up",
+        "title": [
+          "Trebuchets: Up up and Away",
+          "Les Trébuchets: Objets Tombant du Ciel"
+        ],
+        "clinical-trial-number": [
+          {
+            "clinical-trial-number": "isrctn12345",
+            "registry": "10.18810/isrctn",
+            "type": "preResults"
+          }
+        ]
+      },
+      {
+        "DOI": "10.6666/trebuchet",
+        "title": [
+          [
+            "Trebuchets or Catapults? Catapults!"
+          ]
+        ],
+        "clinical-trial-number": [
+          {
+            "clinical-trial-number": "isrctn12345",
+            "registry": "10.18810/isrctn",
+            "type": "kindOfRelated"
+          }
+        ]
+      }
+    ]
+  }
+}

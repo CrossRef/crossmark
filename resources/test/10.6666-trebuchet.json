@@ -1,0 +1,18 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "title": [["Trebuchets or Catapults? Catapults!"]],
+    "DOI": "10.6666/trebuchet",
+    "author": [],
+    "clinical-trial-number": [
+      {
+        "clinical-trial-number": "isrctn12345",
+        "registry": "10.18810/isrctn",
+        "type": "kindOfRelated"
+      }
+    ]
+  }
+}
+    

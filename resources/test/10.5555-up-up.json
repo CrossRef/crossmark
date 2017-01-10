@@ -1,0 +1,155 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [1986, 5, 2]
+      ]
+    },
+    "license": [
+      {
+        "URL": "https://creativecommons.org/licenses/by/4.0/",
+        "start": {
+          "date-parts": [[2011, 11, 21]],
+          "date-time": "2011-11-21T00:00:00Z",
+          "timestamp": 1321833600000
+        },
+        "content-version": "tdm"
+      }
+    ],
+    "publisher": "Oversize Weapons Inc",
+    "funder": [
+      {
+        "DOI": "10.13039/100000001",
+        "name": "National Science Foundation",
+        "doi-asserted-by": "publisher",
+        "award": ["CHE-1152342"]
+      },
+      {
+        "DOI": "10.13039/100006151",
+        "name": "Basic Energy Sciences",
+        "doi-asserted-by": "publisher",
+        "award": ["DE-SC0001091"]
+      }
+    ],
+    "content-domain": {
+      "domain": ["psychoceramics.labs.crossref.org"],
+      "crossmark-restriction": false
+    },
+    "short-container-title": [
+      "Journal of Psychoceramics"
+    ],
+    "published-print": {
+      "date-parts": [[1986, 2, 1]]
+    },
+    "created": {
+      "date-parts": [[1986, 5, 2]]
+    },
+    "published-online": {
+      "date-parts": [[1986, 5, 3]]
+    },
+    "deposited": {
+      "date-parts": [[1986, 5, 4]]
+    },
+    "issued": {
+      "date-parts": [[1986, 5, 5]]
+    },
+    "DOI": "10.5555/up-up",
+    "type": "journal-article",
+    "update-policy": "http://dx.doi.org/10.5555/crossmark_policy",
+    "title": [
+      "Trebuchets: Up up and Away",
+      "Les Trébuchets: Objets Tombant du Ciel"
+    ],
+    "prefix": "http://id.crossref.org/prefix/10.5555",
+    "clinical-trial-number": [
+      {
+        "clinical-trial-number": "isrctn12345",
+        "registry": "10.18810/isrctn",
+        "type": "preResults"
+      }
+    ],
+    "author": [
+      {
+        "ORCID": "http://orcid.org/0000-0002-1825-0097",
+        "given": "Josiah",
+        "family": "Carberry",
+        "affiliation": []
+      },
+      {
+        "given": "Jemima",
+        "family": "Puddleduck"
+      }
+    ],
+    "member": "http://id.crossref.org/member/7822",
+    "container-title": [
+      "Journal of Trebuchets and Lesser Siege Engines",
+      "Jo Tre Les Se Ei"
+    ],
+    "original-title": [],
+
+    "subtitle": [],
+    "short-title": [],
+    "URL": "http://dx.doi.org/10.5555/up-up",
+    "ISSN": [
+      "0264-3561"
+    ],
+    "assertion": [
+      {
+        "value": "http://orcid.org/0000-0002-1825-0097",
+        "URL": "http://orcid.org/0000-0002-1825-0097",
+        "order": 0,
+        "name": "orcid",
+        "label": "ORCID",
+        "group": {
+          "name": "identifiers",
+          "label": "Identifiers"
+        }
+      },
+      {
+        "value": "http://orcid.org/0000-0002-9999-9999",
+        "URL": "http://orcid.org/0000-0002-9999-9999",
+        "order": 1,
+        "name": "OrCiD",
+        "label": "ORCID",
+        "group": {
+          "name": "identifiers",
+          "label": "Identifiers"
+        }
+      },
+      
+      {
+        "value": "2012-07-24",
+        "order": 0,
+        "name": "received",
+        "label": "Received",
+        "group": {
+          "name": "publication_history",
+          "label": "Publication History"
+        }
+      },
+      {
+        "value": "2012-08-29",
+        "order": 1,
+        "name": "accepted",
+        "label": "Accepted",
+        "group": {
+          "name": "publication_history",
+          "label": "Publication History"
+        }
+      },
+      {
+        "value": "2012-09-10",
+        "order": 2,
+        "name": "published",
+        "label": "Published",
+        "group": {
+          "name": "publication_history",
+          "label": "Publication History"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+version: '2'
+services:
+  test:
+    build: .
+    volumes:
+     - .:/usr/src/app
+     - ./.m2-cache:/root/.m2
+    ports:
+     - "8000:8000"
+    environment:
+     - PORT=8000
+     - CDN_URL=http://localhost:8000
+     - CROSSMARK_SERVER=http://localhost:8000
+     - PUSH_URL=http://localhost:1/
+     - PUSH_TOKEN=TEST
+     - JWT_SECRET=TEST
+     - API_BASE=https://api.crossref.org

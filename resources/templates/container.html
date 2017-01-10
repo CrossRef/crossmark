@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Crossmark</title>
+    <link href="{{consts.cdn-url}}/style.css" type="text/css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div id="crossmark-widget" style="display: block;">
+      <div class="crossmark-reset crossmark-overlay"></div>
+      <div class="crossmark-reset crossmark-popup">
+        <div class="crossmark-reset crossmark-popup__offset" style="position: absolute;">
+          <div class="crossmark-reset crossmark-popup__inner">
+            <div class="crossmark-reset crossmark-popup__header">
+              <img src="{{consts.cdn-url}}/images/logo-crossmark.svg" class="crossmark-reset crossmark-popup__logo">
+            </div>
+            <div class="crossmark-reset crossmark-popup__content-wrapper">
+              <iframe class="crossmark-reset crossmark-popup__content" src="/dialog-content?{{query-string}}"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
