@@ -28,11 +28,11 @@ Configuration is done via environment variables.
 
 Run the server:
 
-  time docker-compose run --service-ports -w /usr/src/app test lein run
+    time docker-compose run --service-ports -w /usr/src/app test lein run
 
 Then visit, e.g.:
 
-  http://localhost:8000/dialog?doi=10.1016/j.earscirev.2013.04.010
+    http://localhost:8000/dialog?doi=10.1016/j.earscirev.2013.04.010
 
 ## Quality
 
@@ -45,35 +45,35 @@ Tests are split into two categories:
 
 To run server tests:
 
-  time docker-compose run -w /usr/src/app test lein test :server
+    time docker-compose run -w /usr/src/app test lein test :server
 
 To run browser tests:
 
-  time docker-compose run -w /usr/src/app test lein test :browser
+    time docker-compose run -w /usr/src/app test lein test :browser
 
 Everything
 
-  time docker-compose run -w /usr/src/app test lein test
+    time docker-compose run -w /usr/src/app test lein test
 
 Run code quality check:
 
-  time docker-compose run -w /usr/src/app test lein eastwood
+    time docker-compose run -w /usr/src/app test lein eastwood
 
 ### Coverage
 
 Code coverage from running all tests. Results are found in `target/coverage`.
 
-  lein cloverage
+    lein cloverage
 
 ### Test TODOs
 
-
+Test stubs are marked with the `:todo` tag.
 
 ### Check
 
 Pre-release check everything. Don't release unless this passes!
 
-  ./check.sh
+    ./check.sh
 
 ## License
 

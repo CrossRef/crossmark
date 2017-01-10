@@ -61,7 +61,6 @@
                   
                   (assoc :show-header (::show-header ctx)))]
 
-     ; TODO do we want domain exclusive in version 2?
      (log-view doi referrer (:has-update context) (:has-domain-exclusive-violation context) (not jwt-ok))
      
      (render-file "templates/dialog.html" context)))

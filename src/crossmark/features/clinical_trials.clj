@@ -3,25 +3,21 @@
   (:require [crossmark.util :as util]))
 
 (defn works-for-ctn [ctn]
-  ; TODO use custom API endpoint.
   ; Only show first 100 linked documents.
   (let [works (get-in (util/fetch-json "http://api.crossref.org/v1/works" {:query-params {"rows" 100 "filter" (str "clinical-trial-number:" ctn)}}) [:message :items])
         ; To map of doi, title. 
         doi-title (->> works
-          ; TODO replace this after design review.
           (map (fn [work]
             (let [ctns (:clinical-trial-number work)
                   ; relation-type may or may not be present.
                   relation-type (first (keep #(when (= (:clinical-trial-number %) ctn)
                                                 (:type %)) ctns))
-                  ; TODO extract relation types.
+
                   relation-type ({"postResults" "Post-results" "preResults" "Pre-results" "results" "Results"} relation-type)]
               {:doi (:DOI work)
                :title (-> work :title first)
                :relation-type relation-type}))))]
     doi-title))
-
-; TODO permanently cache get-doi-title as registries will never change
 
 (defn decorate-clinical-trial-number [item]
   (let [ctns (-> item :from-md-api :clinical-trial-number)

@@ -51,7 +51,6 @@
                                          (:type update))
                               
                               ; Controlled vocab of headlines
-                              ; TODO extract this.
                               :headline (cond
                                 (= "withdrawal" (:type update)) "Withdrawal"
                                 (= "retraction" (:type update)) "Retraction"

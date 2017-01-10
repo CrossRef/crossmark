@@ -13,8 +13,6 @@
 (deftest ^:todo fetch-json
   (testing "fetch-json should fetch JSON and return with keyword keys."))
 
-; TODO should get contents of message?
-
 (deftest ^:todo fetch-json-retry
   (testing "fetch-json should retry API queries."))
 
