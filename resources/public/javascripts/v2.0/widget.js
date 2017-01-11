@@ -5,9 +5,9 @@ DO NOT RE-HOST THIS FILE.
 document.addEventListener('DOMContentLoaded', function(event) {
   var SETTINGS = {
     VERIFICATION: "{{jwt}}",
-    ENDPOINT: '{{consts.crossmark-server}}',
+    ENDPOINT: '{{consts.crossmark-server}}/dialog',
     SCRIPT_VERSION: '{{consts.version}}',
-    STYLESHEET_URL: '{{consts.cdn-url}}/widget/v2.0/style.css',
+    STYLESHEET_URL: '{{consts.cdn-url}}/widget/v2.0/style.css'
   };
 
   var touchStarted = false;
@@ -86,7 +86,8 @@ document.addEventListener('DOMContentLoaded', function(event) {
     doi: doi,
     domain: window.location.hostname,
     uri_scheme: window.location.protocol,
-    cm_version: SETTINGS.SCRIPT_VERSION
+    cm_version: SETTINGS.SCRIPT_VERSION,
+    verification: SETTINGS.VERIFICATION
   };
 
   var css = document.createElement('link');

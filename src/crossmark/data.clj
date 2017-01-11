@@ -5,7 +5,8 @@
             [crossmark.features.crossmark-core :as crossmark-core]
             [crossmark.features.funder :as funder]
             [crossmark.features.license :as license]
-            [crossmark.util :as util])
+            [crossmark.util :as util]
+            [crossref.util.doi :as cr-doi])
   (:import [java.net URLEncoder]))
 
 (defn base
@@ -14,7 +15,8 @@
   ; Fetch external data in parallel.
   (let [from-md-api (future (util/fetch-md-api doi))
         updates (future (util/fetch-reverse-updates doi))]
-      {:consts consts
+      {:doi (cr-doi/normalise-doi doi)
+       :consts consts
        :date-stamp date-stamp
        :request {:referring-domain referring-domain :jwt-ok jwt-ok}
        :from-md-api @from-md-api
@@ -32,6 +34,7 @@
       clinical-trials/decorate-clinical-trial-number
       crossmark-core/decorate-updates
       crossmark-core/decorate-extra-assertions
+      crossmark-core/decorate-domain-info
       funder/decorate-funder
       license/decorate-license
       crossmark-core/decorate-dois)

@@ -6,7 +6,7 @@
 
 (deftest decorate-work-info
   (testing "Bibliographic work information should be retrieved from API response"
-    (let [base (test-util/base "test/10.5555-up-up.json")
+    (let [base (test-util/base "test/10.5555-up-up.json" {})
           result (bibliographic/decorate-work-info base)]
       (is (= (:title result) "Trebuchets: Up up and Away") "First title should be chosen.")
       (is (= (:publication result) "Journal of Trebuchets and Lesser Siege Engines") "First container-title should be chosen as the publication name.")
@@ -15,7 +15,7 @@
       (is (= (:publisher result) "Oversize Weapons Inc")))))
 
 (deftest decorate-author
-  (let [base (test-util/base "test/10.5555-up-up.json")
+  (let [base (test-util/base "test/10.5555-up-up.json" {})
         result (bibliographic/decorate-author base)]
     (testing "decorate-author should select all authors"
       (is
@@ -25,7 +25,7 @@
             {:family "Puddleduck" :given "Jemima"}})
         "All first and given names should be selected")
       (is (true? (:has-author result)))))
-  (let [base (test-util/base "test/10.5555-catapult.json")
+  (let [base (test-util/base "test/10.5555-catapult.json" {})
         result (bibliographic/decorate-author base)]
     (testing "decorate-author should represent when no authors"
       (is (false? (:has-author result)))
@@ -33,7 +33,7 @@
 
 (deftest decorate-remove-orcid-authors
   (testing "decorate-author should ignore ORCID-based assertions, case insensitive"
-    (let [base (test-util/base "test/10.5555-up-up.json")
+    (let [base (test-util/base "test/10.5555-up-up.json" {})
           result (bibliographic/decorate-remove-orcid-authors base)]
       ; There are 5 assertions in 10.5555/up-up 
       ; 2 of them are ORCID assertions with different cases.

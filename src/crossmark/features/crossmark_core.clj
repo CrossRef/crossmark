@@ -26,19 +26,17 @@
 
 (defn decorate-domain-info [item]
   (let [referring-domain (-> item :request :referring-domain)
-        domain-exclusive (-> item :from-cm-api :crossmark_domain_exclusive)
-        allowed-domains (set (->> item :from-cm-api :domains (map :domain)))
-        ; subdomains of allowed-domains must match.
+        domain-exclusive (-> item :from-md-api :content-domain :crossmark-restriction)
+        allowed-domains (set (->> item :from-md-api :content-domain :domain))
         
         ; referring-domain can be, e.g. :unknown
         matched-domains (not-empty (filter #(.endsWith (str referring-domain) %) allowed-domains))
 
         is-pdf (= :pdf (-> item :request :referring-domain))
 
-        violation (and domain-exclusive
-                       (not is-pdf)
-                       (not matched-domains))]
-
+        violation (boolean (and domain-exclusive
+                             (not is-pdf)
+                             (not matched-domains)))]
   (assoc item :has-domain-exclusive-violation violation)))
 
 (defn decorate-updates [item]

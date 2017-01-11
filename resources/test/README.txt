@@ -6,6 +6,7 @@ Test publications:
    Author: Josiah Carberry.
  - 10.5555/catapult: "Catapults Considered Harmful"
    Author mysteriously missing.
+   Domain-exclusive enabled.
  - 10.5555/withdrawal-catapult: "WITHDRAWAL: Catapults Considered Harmful"
  - 10.6666/trebuchet: "Trebuchets or Catapults? Catapults!"
  - 10.6666/retraction-trebuchet: "RETRACTION: Trebuchets or Catapults? Catapults!"

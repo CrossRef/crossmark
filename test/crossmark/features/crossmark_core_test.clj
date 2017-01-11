@@ -1,15 +1,33 @@
 (ns crossmark.features.crossmark-core-test
   (:require [clojure.test :refer :all]
+            [crossmark.test-util :as test-util]
             [crossmark.features.crossmark-core :as crossmark-core]))
 
 (deftest ^:todo decorate-domain-info
-  (testing "decorate-domain-info should not set :has-domain-exlusive-violation if the 'referring domain' is a PDF")
+  (testing "decorate-domain-info should not set :has-domain-exlusive-violation if the 'referring domain' is a PDF"
+    (let [base (test-util/base "test/10.5555-catapult.json" {:request {:referring-domain :pdf}})
+          result (crossmark-core/decorate-domain-info base)]
+      (is (false? (result :has-domain-exclusive-violation)) "No domain exlusive violation on PDF")))
 
-  (testing "decorate-domain-info should set :has-domain-exlusive-violation if :content-domain is set in the MDAPI data and :crossmark-restriction true and the domain doesn't match")
+  (testing "decorate-domain-info should set :has-domain-exlusive-violation if :content-domain is set in the MDAPI data and :crossmark-restriction true and the domain doesn't match"
+    (let [base (test-util/base "test/10.5555-catapult.json" {:request {:referring-domain "NOT-CORRECT.COM"}})
+          result (crossmark-core/decorate-domain-info base)]
+      (is (true? (result :has-domain-exclusive-violation)) "Domain exlusive violation on incorrect domain.")))
+
+  (testing "decorate-domain-info should report no violation if :crossmark-restriction true and one of multiple domains match."
+    (let [base-1 (test-util/base "test/10.5555-catapult.json" {:request {:referring-domain "catapults-international.org"}})
+          result-1 (crossmark-core/decorate-domain-info base-1)
+          base-2 (test-util/base "test/10.5555-catapult.json" {:request {:referring-domain "catapults-international.com"}})
+          result-2 (crossmark-core/decorate-domain-info base-2)]
+      (is (false? (result-1 :has-domain-exclusive-violation)) "No conflict on first correct domain.")
+      (is (false? (result-2 :has-domain-exclusive-violation)) "No conflict on second correct domain.")))
 
   (testing "decorate-domain-info should not set :has-domain-exlusive-violation if :content-domain is set in the MDAPI data but :crossmark-restriction is false")
 
-  (testing "decorate-domain-info should allow for subdomains to be supplied, reporting :has-domain-exlusive-violation false"))
+  (testing "decorate-domain-info should allow for subdomains to be supplied, reporting :has-domain-exlusive-violation false"
+    (let [base (test-util/base "test/10.5555-catapult.json" {:request {:referring-domain "pages.subdomain.catapults-international.org"}})
+          result (crossmark-core/decorate-domain-info base)]
+      (is (false? (result :has-domain-exclusive-violation)) "No conflict on correct subomain."))))
 
 (deftest ^:todo decorate-updates
   (testing "decorate-updates should choose label in preference from supplied, or default from update-types-labels, or take the 'type' attribute.")

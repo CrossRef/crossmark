@@ -24,6 +24,8 @@
       (get-in loaded [:message]))))
 
 (defn base
-  "Create a base object as per crossmark.data with given DOIs."
-  [mdapi-filename]
-  {:from-md-api (load-json-content mdapi-filename)})
+  "Create a base object as per crossmark.data with given DOIs.
+   Also supply fields per data/base if wanted."
+  [mdapi-filename extras]
+  (merge extras 
+         {:from-md-api (load-json-content mdapi-filename)}))

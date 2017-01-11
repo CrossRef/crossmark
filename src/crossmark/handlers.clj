@@ -27,19 +27,11 @@
   []
   :allowed-methods [:get]
   :available-media-types ["application/json"]
-  :handle-ok (fn [context]
+  :handle-ok (fn [ctx]
               (let [report {:machine_name (.getHostName (InetAddress/getLocalHost))
                             :crossmark_server_version (server-helpers/get-version)
                             :status "OK"}]
                 (json/write-str report :key-fn name))))
-
-(defn get-referring-domain [request]
-  (try
-      (let [referer (get (:headers request) "referer")
-            url (new URL referer)
-            domain (.getHost url)]
-        domain)
-     (catch MalformedURLException _ nil)))
 
 (defn handle-ok-container
   "Handle the container view. For PDF links etc."
@@ -47,28 +39,29 @@
   (render-file "templates/container.html" {:query-string query-string}))
 
 (defn handle-ok-content
-  "Handle the normal view. Can be inside normal widget dialog or inside standalone view."
+  "Handle the normal view. Can be inside normal widget dialog or inside standalone view.
+  ::referrer should be one of :pdf, :default or a domain name string."
   [ctx]
   (let [params (-> ctx :request :params)
-        jwt (-> params :verify)
+        jwt (-> params :verification)
         jwt-ok (server-helpers/verify-jwt jwt)
 
         doi (.replaceAll (.replaceAll (or (-> ctx :request :params :doi) "") "^ *" "") " *$" "")
         date-stamp (parse (:date_stamp params))
         referrer (::referrer ctx)
-        context (->
+        render-context (->
                   (data/build doi server-helpers/consts referrer date-stamp jwt-ok)
-                  
                   (assoc :show-header (::show-header ctx)))]
 
-     (log-view doi referrer (:has-update context) (:has-domain-exclusive-violation context) (not jwt-ok))
+     (log-view doi referrer (:has-update render-context) (:has-domain-exclusive-violation render-context) (not jwt-ok))
      
-     (render-file "templates/dialog.html" context)))
+     (render-file "templates/dialog.html" render-context)))
 
 (defn should-show-header-for-version
-  "Given the supplied version string, should the header be shown?"
+  "Given the supplied version string, should the header be shown?
+   Compatibility for old (pre 2.0) versions showing a different dialog."
   [version-string]
-  (not (#{"v2.0"} version-string)))
+  (not (re-matches #"^2\.0.*" version-string)))
 
 (defresource dialog
   ; View-type is either
@@ -82,8 +75,7 @@
                 (let [params (-> ctx :request :params)
 
                       query-string (-> ctx :request :query-string)
-                      ; domain from http headers
-                      referring-domain (get-referring-domain (:request ctx))
+                      
                       ; domain as supplied in urls
                       given-domain (:domain params)
 
@@ -108,6 +100,13 @@
                     ; This could be from a normal site, where the uri-scheme is "http:" or "https:" or from a saved page from "file:".
                     :default (handle-ok-content (assoc ctx ::show-header show-header ::referrer referrer))))))
 
+(defresource readme
+  []
+  :allowed-methods [:get]
+  :available-media-types ["text/html"]
+  :handle-ok (fn [ctx]
+    (render-file "templates/widget/v2.0/readme.html" {:consts server-helpers/consts})))
+
 (defroutes app-routes
 
   ; Standlone shows the content, but from within a standalone (e.g. PDF-linked) page.
@@ -120,7 +119,8 @@
   (GET "/heartbeat/" [] (heartbeat))
   (GET "/heartbeat" [] (heartbeat))
     
-  (GET "/widget/v2.0/widget.js" [] (server-helpers/templated-js "public/javascripts/v2.0/widget.js" false))  
+  (GET "/widget/v2.0/widget.js" [] (server-helpers/templated-js "public/javascripts/v2.0/widget.js" true))
+  (GET "/widget/v2.0/readme.html" [] (readme))
   
   (route/resources "/")
   (GET "/" [] (redirect "https://www.crossref.org/crossmark/"))

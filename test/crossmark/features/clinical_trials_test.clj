@@ -27,7 +27,7 @@
 
 (deftest decorate-clinical-trial-number
   (testing "decorate-clinical-trial-number should decorate with human-readable info"
-    (let [base (test-util/base "test/10.5555-up-up.json")
+    (let [base (test-util/base "test/10.5555-up-up.json" {})
           result (clinical-trials/decorate-clinical-trial-number base)]
       (fake/with-fake-http [{:url "http://api.crossref.org/v1/works"
                              :method :get
@@ -41,7 +41,7 @@
         (is (= (-> result :clinical-trial-number first :registry-name) "ISRCTN.org") "When recognised, the CTN Registry name should be retrieved"))))
 
   (testing "decorate-clinical-trial-number should indicate when there are no CTNs"
-    (let [base (test-util/base "test/10.5555-catapult.json")
+    (let [base (test-util/base "test/10.5555-catapult.json" {})
       result (clinical-trials/decorate-clinical-trial-number base)]
       (is (false? (:has-clinical-trial-number result)) "When no CTNs, :has-clinical-trial-number should be false")
       (is (empty? (:clinical-trial-number result)) "When no CTNs, :clinical-trial-number should be empty"))))

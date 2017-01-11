@@ -46,6 +46,20 @@
 </section>
 {% else %}
 
+{% if has-domain-exclusive-violation %}
+                    <section class="document-status document-status--retraction">
+                        <header class="document-status__header">
+                            <h1 class="document-status__title">
+                                <span class="document-status__title__text">Unknown Website</span>
+                                <!-- <span class="document-status__title__subtext">{{update.label}} dated {{update.date}}</span> -->
+                            </h1>
+                            <h2 class="document-status__subtitle">
+                                <span class="document-status__subtitle__text">Use the link below to access the publisher-maintained version and check for updates:</span>
+                                <a href="{{doi}}" class="document-status__subtitle__link" target="_blank">{{doi}}</a>
+                            </h2>
+                        </header>
+                    </section>
+{% endif %}
 {% if has-update %}
 {% for update in updates %}
 {% if update.error? %}

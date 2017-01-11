@@ -5,7 +5,11 @@
 "message": {
     "title": [["Catapults Considered Harmful"]],
     "DOI": "10.5555/catapult"
-    "author": []
+    "author": [],
+    "content-domain": {
+      "domain": ["catapults-international.org",
+                 "catapults-international.com"],
+      "crossmark-restriction": true
+    }
   }
 }
-  

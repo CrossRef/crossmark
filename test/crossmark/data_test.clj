@@ -4,4 +4,9 @@
             [crossmark.data :as data]))
 
 (deftest ^:todo base
-  (testing "Base should retrieve metadata and update information."))
+  (testing "Base should retrieve metadata and update information.")
+
+  (testing "Base should set and normalize DOI.")
+
+  )
+
