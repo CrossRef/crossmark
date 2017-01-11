@@ -1,0 +1,11 @@
+# Example settings
+
+export PORT=8003
+export PUSH_URL=http://localhost:8004/push/
+export PUSH_TOKEN=«FILL ME IN»
+export JWT_SECRET=«FILL ME IN»
+export CDN_URL=http://crossmark-cdn.crossref.org
+export CROSSMARK_SERVER=https://crossmark.crossref.org
+export API_BASE=http://localhost:3000
+
+lein run

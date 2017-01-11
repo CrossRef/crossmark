@@ -12,4 +12,4 @@ pom.xml.asc
 .m2-cache
 .DS_Store
 notes
-
+run.sh

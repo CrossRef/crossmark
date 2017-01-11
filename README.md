@@ -24,6 +24,20 @@ Configuration is done via environment variables.
  - `PUSH_URL` - URL for reporting stats
  - `PUSH_TOKEN` - token for reporting status
 
+## Deployment
+
+The server can be deployed either running directly or via Docker.
+
+### Running directly
+
+1. Generate a JWT secret.
+2. Create a file that resembles `run.sh.example`
+3. Run it! 
+
+### Running with Docker
+
+Run via Docker Swarm, or create a `docker-compose.yml` file with above environment variables.
+
 ## Tinkering
 
 Run the server:

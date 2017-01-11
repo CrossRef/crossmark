@@ -61,7 +61,7 @@
   "Given the supplied version string, should the header be shown?
    Compatibility for old (pre 2.0) versions showing a different dialog."
   [version-string]
-  (not (re-matches #"^2\.0.*" version-string)))
+  (not (re-matches #"^2\.0.*" (or version-string ""))))
 
 (defresource dialog
   ; View-type is either
@@ -129,6 +129,5 @@
 (def app
   (-> app-routes
       
-
       ; wrap-stacktrace
       handler/site))
