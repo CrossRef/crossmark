@@ -57,17 +57,29 @@ Tests are split into two categories:
  - 'server' tests generally take a metadata API response and build a context object (passed into the HTML render). The context object is tested.
  - 'browser' tests execute the widget in a headless browser
 
+#### Server tests
+
 To run server tests:
 
-    time docker-compose run -w /usr/src/app test lein test :server
-
-To run browser tests:
-
-    time docker-compose run -w /usr/src/app test lein test :browser
-
-Everything
-
     time docker-compose run -w /usr/src/app test lein test
+
+#### Browser tests
+
+For browser tests PhantomJS must be installed. This runs on the host machine (for now).
+
+Run the server in the background:
+
+    time docker-compose run --service-ports -w /usr/src/app test lein run
+
+Then run tests:
+
+    phantomjs js-tests/tests.js
+
+Errors are reported on console, plus a nonzero exit code for any failure.
+
+Tests are written in `js-tests/tests.js` with accompanying HTML files in the `resources/test` directory. Each HTML file makes a callback to say that it's ready. See examples.
+
+### Quality
 
 Run code quality check:
 

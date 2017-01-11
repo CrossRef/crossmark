@@ -120,6 +120,7 @@
   (GET "/heartbeat" [] (heartbeat))
     
   (GET "/widget/v2.0/widget.js" [] (server-helpers/templated-js "public/javascripts/v2.0/widget.js" true))
+  (GET "/widget/v2.0/widget-debug.js" [] (server-helpers/templated-js "public/javascripts/v2.0/widget.js" false))
   (GET "/widget/v2.0/readme.html" [] (readme))
   
   (route/resources "/")
