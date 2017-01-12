@@ -2,6 +2,32 @@
 Version {{crossmark-version}}.
 DO NOT RE-HOST THIS FILE.
 */
+document.CROSSMARK = {};
+
+// Retrieve all tags.
+document.CROSSMARK.getDoiMetaTags = function() {
+  var tags = [];
+
+  var metaTags = document.querySelectorAll("meta");
+  for (var i in metaTags) {
+    if (metaTags.hasOwnProperty(i)) {
+      var tag = metaTags[i];
+
+      // Only interested in dc.identifier .
+      if ((tag.name || "").toLowerCase() == "dc.identifier") {
+
+        // If there is no scheme, accept. If there is a scheme, and it's not DOI, ignore.
+        var scheme = (tag.getAttribute("scheme") || "").toLowerCase();
+        if (scheme === "" || scheme === "doi") {
+          tags.push(tag);
+        }
+      }
+    }
+  }
+
+  return tags;
+}
+
 document.addEventListener('DOMContentLoaded', function(event) {
   var SETTINGS = {
     VERIFICATION: "{{jwt}}",
@@ -66,20 +92,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
   var isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-  // Scan for case-insensitive.
-  var getDoiMeta = function() {
-    var metaTags = document.querySelectorAll("meta");
-    for (var i in metaTags) {
-      if (metaTags.hasOwnProperty(i)) {
-        var tag = metaTags[i];
-        if ((tag.name || "").toLowerCase() == "dc.identifier") {
-          return tag;
-        }
-      }
-    }
-  }
+  
 
-  var doiMeta = getDoiMeta();
+  var doiMeta = document.CROSSMARK.getDoiMetaTags()[0];
   var doi = doiMeta ? doiMeta.getAttribute('content').replace(/^(info:doi\/|doi:)/, '') : null;
 
   var queryData = {
