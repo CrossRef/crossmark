@@ -4,7 +4,7 @@
 
 (defn works-for-ctn [ctn]
   ; Only show first 100 linked documents.
-  (let [works (get-in (util/fetch-json "http://api.crossref.org/v1/works" {:query-params {"rows" 100 "filter" (str "clinical-trial-number:" ctn)}}) [:message :items])
+  (let [works (get-in (util/fetch-json util/works-api-endpoint {:query-params {"rows" 100 "filter" (str "clinical-trial-number:" ctn)}}) [:message :items])
         ; To map of doi, title. 
         doi-title (->> works
           (map (fn [work]

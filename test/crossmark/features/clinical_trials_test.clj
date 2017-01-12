@@ -6,7 +6,7 @@
 
 (deftest works-for-ctn
   (testing "works-for-ctn should contact API with appropriate query and return all results."
-    (fake/with-fake-http [{:url "http://api.crossref.org/v1/works"
+    (fake/with-fake-http [{:url "https://api.crossref.org/v1/works"
                            :method :get
                            :query-params {"rows" 100 "filter"
                                           "clinical-trial-number:isrctn12345"}}
@@ -29,7 +29,7 @@
   (testing "decorate-clinical-trial-number should decorate with human-readable info"
     (let [base (test-util/base "test/10.5555-up-up.json" {})
           result (clinical-trials/decorate-clinical-trial-number base)]
-      (fake/with-fake-http [{:url "http://api.crossref.org/v1/works"
+      (fake/with-fake-http [{:url "https://api.crossref.org/v1/works"
                              :method :get
                              :query-params {"rows" 100 "filter"
                                             "clinical-trial-number:isrctn12345"}}
