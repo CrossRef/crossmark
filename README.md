@@ -6,7 +6,7 @@ Service for showing the Crossmark dialog and serving up assets.
 
 The server (i.e. the 'Crossmark service') is versioned, and the version number can be found in the `project.clj` file. Major, minor and point release numbers are used. This is the version of the service, which serves up both the widget code and the contents of the dialog. There is only one current version of Crossmark service.
 
-The widget itself is versioned. Major and minor versions are used, and correspond to the current server version, but point releases are not used. This is because the script must be referenced explicitly in the publisher's site when they embed the version. A minor release requires a publisher to change their HTML. 
+The widget itself is versioned. Major and minor versions are used, and correspond to the current server version, but point releases are not used. This is because the script must be referenced explicitly in the publisher's site when they embed the version. A major or minor release requires a publisher to change their HTML, which should happen very infrequently. As such, point releases are not reflected in the version as indicated in the path of the script. However, the full version is included in the content of the script.
 
 ## CDN
 
