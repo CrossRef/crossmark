@@ -70,10 +70,15 @@
 (defn get-doi-title
   "Fetch the title for a DOI or return default.
   Makes a network request, only for use when the data isn't otherwise available."
-  [doi default]
-  (or (-> doi fetch-md-api :title first) default))
-
-
+  [doi default-value]
+  (or
+    (try
+      (-> doi fetch-md-api :title first)
+      ; Any exception (JSON or network) should return nil.
+      ; fetch-md-api will have logged it.
+      (catch Exception e nil))
+    ; Default value on exception or if there was no title.
+    default-value))
 
 (defn possibly-normalise-doi
   "If the thing could be a DOI, normalize it. Otherwise return unchanged."

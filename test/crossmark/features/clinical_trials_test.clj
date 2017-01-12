@@ -21,9 +21,56 @@
         (is (= (-> response second :relation-type) nil) "Unrecognised relation-type should be transformed to human-readable")))))
 
 (deftest lookup-registry-name
-  (testing "lookup-registry-name should retrieve name from API when recognised")
+  (testing "lookup-registry-name should retrieve name with default"
+     (fake/with-fake-http ["https://api.crossref.org/v1/works/10.18810%2Fisrctn"
+                           (test-util/load-api "test/10.18810-isrctn.json")
 
-  (testing "lookup-registry-name should return default name if missing"))
+                           "https://api.crossref.org/v1/works/10.18810%2FXXXXX"
+                           {:status 404}]
+
+        (is (= (clinical-trials/get-registry-name "10.18810/isrctn")
+               "ISRCTN.org") "Correct registry should be returned when it exists.")
+
+        (is (= (clinical-trials/get-registry-name "10.18810/XXXXX")
+               clinical-trials/unknown-registry-name) "'Unknown' should be returned when unknown registry is queried.")))
+
+  (testing "lookup-registry-name should cache name"
+    ; Count the number of times these are called.
+    (let [one-off-called (atom 0)
+          unknown-called (atom 0)]
+      (fake/with-fake-http ["https://api.crossref.org/v1/works/10.18810%2Fone-off"
+                           (fn [req a b]
+                             (swap! one-off-called inc)
+                             (test-util/load-api "test/10.18810-one-off.json"))
+
+                           "https://api.crossref.org/v1/works/10.18810%2FXXXXX"
+                           (fn [req a b]
+                              (swap! unknown-called inc)
+                              {:status 404})]
+
+        ; Call this known registry a few times.
+        (is (= (clinical-trials/get-registry-name "10.18810/one-off")
+               "One Off Registry") "Correct registry should be returned from cache when it exists.")
+
+        (is (= (clinical-trials/get-registry-name "10.18810/one-off")
+               "One Off Registry") "Correct registry should be returned from cache when it exists.")
+
+        (is (= (clinical-trials/get-registry-name "10.18810/one-off")
+               "One Off Registry") "Correct registry should be returned from cache when it exists.")
+
+        ; And this unknown one a few times too.
+        (is (= (clinical-trials/get-registry-name "10.18810/XXXXX")
+                 clinical-trials/unknown-registry-name) "'Unknown' should be returned when unknown registry but not cached.")
+
+        (is (= (clinical-trials/get-registry-name "10.18810/XXXXX")
+                 clinical-trials/unknown-registry-name) "'Unknown' should be returned when unknown registry but not cached.")
+
+        (is (= (clinical-trials/get-registry-name "10.18810/XXXXX")
+                 clinical-trials/unknown-registry-name) "'Unknown' should be returned when unknown registry but not cached.")
+
+        (is (= @one-off-called 1) "A cached known result should not be requeried.")
+        ; Retries may bump this number up. But should be at least as many as the number of invocations.
+        (is (>= @unknown-called 3) "An unkonwn result should always be be requeried and not cached.")))))
 
 (deftest decorate-clinical-trial-number
   (testing "decorate-clinical-trial-number should decorate with human-readable info"
