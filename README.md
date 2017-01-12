@@ -10,7 +10,11 @@ The widget itself is versioned. Major and minor versions are used, and correspon
 
 ## CDN
 
-A CDN should be provided for assets, mirroring the service.
+A CDN should be provided for assets, mirroring the URLs on this service. The CDN ensures that hotlinked assets, such as the logo image and the widget script, load fast. The CDN should cache assets for no longer than 24 hours (and optionally be invalidated on a deploy).
+
+The widget script should be hotlinked directly to the CDNed version, *not rehosted*. The technical documentation for Crossmark includes instructions for how to implement Crossmark on a page. It's important to know when an out-of-date script is being used because out-of-date versions may not include bugfixes.
+
+When the script is served, a signed JWT is included that indicates when the script was generated. When served through a CDN this will be cached, so the script will always contain a cryptographically verifiable tag of when it was originally served up. This is passed back to the service when the dialog is called. The script verification functionality will raise an error when a script older than 5 days is used, leaving a few days' grace.
 
 ## Configuration
 
