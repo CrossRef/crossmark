@@ -57,7 +57,7 @@
                               :error? (boolean (error-types (:type update)))
 
                               :date (util/maybe-date (:date update))})
-                           (:reverse-updates item))
+                           (:updates item))
 
         ; If date-stamp supplied, only show updates after this date.
         date-filtered (if-let [date-stamp (:date-stamp item)]

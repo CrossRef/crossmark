@@ -1,4 +1,4 @@
-(defproject crossmark "2.0.101"
+(defproject crossmark "2.0.102"
   :description "Crossmark Dialog Server"
   :url "https://crossmark.crossref.org"
   :license {:name "MIT License"
