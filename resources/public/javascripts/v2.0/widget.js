@@ -20,11 +20,14 @@ document.CROSSMARK.getDoiMetaTags = function() {
       var tag = metaTags[i];
 
       // Only interested in dc.identifier .
-      if ((tag.name || "").toLowerCase() == "dc.identifier") {
-
+      // We see DC.Identifier and DC.Identifier.DOI
+      if ((tag.name || "").toLowerCase().match(/^dc\.identifier/)) {
         // If there is no scheme, accept. If there is a scheme, and it's not DOI, ignore.
         var scheme = (tag.getAttribute("scheme") || "").toLowerCase();
-        if (scheme === "" || scheme === "doi") {
+        var isDoi = tag.getAttribute('content') && tag.getAttribute('content').match(/(10\.\d+\/.*$)/);
+
+        // We have some non-DOI tags.
+        if (isDoi && (scheme === "" || scheme === "doi")) {
           tags.push(tag);
         }
       }

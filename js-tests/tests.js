@@ -47,7 +47,7 @@ var tests = [
       var doi = page.evaluate(function(){
         return document.CROSSMARK.getDoi();
       });
-      console.log("DOI" + doi)
+
      return (doi === "10.5555/22222");
    }
   },
@@ -86,8 +86,19 @@ var tests = [
       
       return (doi === "10.5555/98754321");
    }
-  }
+  },
 
+  {name: "meta-dc-conflict-ojs",
+   description: "Widget should extract DOI when there are multiple meta tags including mulitple 'dc.identifier's but only one is a DOI. Regression for Jira GO-444.",
+   file: "meta-dc-conflict-ojs.html",
+   f: function(page) {
+      var doi = page.evaluate(function(){
+        return document.CROSSMARK.getDoi();
+      });
+      
+      return (doi === "10.15649/cuidarte.v8i1.345");
+   }
+  }
 ];
 
 
