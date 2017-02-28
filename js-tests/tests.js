@@ -8,15 +8,11 @@ var tests = [
    description: "Widget should extract DOI from 'dc.identifier' meta tag with a 'doi:' prefix.",
    file: "meta-dc-doi.html",
    f: function(page) {
-      var href = page.evaluate(function(){
-        return document.getElementById("button").getAttribute("href");
+      var doi = page.evaluate(function(){
+        return document.CROSSMARK.getDoi();
       });
 
-     // Should extract DOI and place it in the link, URL encoded.
-     if (href.indexOf("10.5555%2F11111") == -1) {
-       return false;
-     }
-     return true;
+     return (doi === "10.5555/11111");
    }
   },
 
@@ -24,15 +20,11 @@ var tests = [
    description: "Widget should extract DOI from 'dc.identifier' meta tag when the tag has a 'scheme' attribute of 'doi'.",
    file: "meta-dc-with-scheme.html",
    f: function(page) {
-      var href = page.evaluate(function(){
-        return document.getElementById("button").getAttribute("href");
+      var doi = page.evaluate(function(){
+        return document.CROSSMARK.getDoi();
       });
 
-     // Should extract DOI and place it in the link, URL encoded.
-     if (href.indexOf("10.5555%2F11111") == -1) {
-       return false;
-     }
-     return true;
+     return (doi === "10.5555/11111");
    }
   },
 
@@ -40,15 +32,11 @@ var tests = [
    description: "Widget should extract DOI from 'dc.identifier' meta tag when the tag has no 'scheme' attribute.",
    file: "meta-dc-without-scheme.html",
    f: function(page) {
-      var href = page.evaluate(function(){
-        return document.getElementById("button").getAttribute("href");
+      var doi = page.evaluate(function(){
+        return document.CROSSMARK.getDoi();
       });
 
-     // Should extract DOI and place it in the link, URL encoded.
-     if (href.indexOf("10.5555%2F11111") == -1) {
-       return false;
-     }
-     return true;
+     return (doi === "10.5555/11111");
    }
   },
 
@@ -56,15 +44,11 @@ var tests = [
    description: "Widget should extract DOI from 'dc.identifier' meta tag with an HTTP URL.",
    file: "meta-dc-http.html",
    f: function(page) {
-      var href = page.evaluate(function(){
-        return document.getElementById("button").getAttribute("href");
+      var doi = page.evaluate(function(){
+        return document.CROSSMARK.getDoi();
       });
-
-     // Should extract DOI and place it in the link, URL encoded.
-     if (href.indexOf("10.5555%2F22222") == -1) {
-       return false;
-     }
-     return true;
+      console.log("DOI" + doi)
+     return (doi === "10.5555/22222");
    }
   },
 
@@ -72,16 +56,11 @@ var tests = [
    description: "Widget should extract DOI from 'dc.identifier' meta tag with plain un-prefixed DOI.",
    file: "meta-dc-plain.html",
    f: function(page) {
-      var href = page.evaluate(function(){
-        return document.getElementById("button").getAttribute("href");
+      var doi = page.evaluate(function(){
+        return document.CROSSMARK.getDoi();
       });
 
-     // Should extract DOI and place it in the link, URL encoded.
-     if (href.indexOf("10.5555%2F33333") == -1) {
-       return false;
-     }
-
-     return true;
+     return (doi === "10.5555/33333");
    }
   },
 
@@ -89,16 +68,11 @@ var tests = [
    description: "Widget should extract DOI from 'dc.identifier' meta tag, tag name case insensitive.",
    file: "meta-dc-case-insensitive.html",
    f: function(page) {
-      var href = page.evaluate(function(){
-        return document.getElementById("button").getAttribute("href");
+      var doi = page.evaluate(function(){
+        return document.CROSSMARK.getDoi();
       });
 
-     // Should extract DOI and place it in the link, URL encoded.
-     if (href.indexOf("10.5555%2F11111") == -1) {
-       return false;
-     }
-
-     return true;
+     return (doi === "10.5555/11111");
    }
   },
 
@@ -106,16 +80,11 @@ var tests = [
    description: "Widget should extract DOI when there are multiple meta tags including mulitple 'dc.identifier's but only one is a DOI.",
    file: "meta-dc-conflict.html",
    f: function(page) {
-      var href = page.evaluate(function(){
-        return document.getElementById("button").getAttribute("href");
+      var doi = page.evaluate(function(){
+        return document.CROSSMARK.getDoi();
       });
-
-     // Should extract DOI and place it in the link, URL encoded.
-     if (href.indexOf("10.5555%2F98754321") == -1) {
-       return false;
-     }
-
-     return true;
+      
+      return (doi === "10.5555/98754321");
    }
   }
 
