@@ -122,8 +122,8 @@ document.CROSSMARK.tapEvent = function(element, callback) {
 // If there's already a dialog in the DOM but hiding, remove it.
 document.CROSSMARK.erase = function() {
   var overlay = document.querySelector('.crossmark-overlay');
-  if (overlay !== null) {
-    overlay.remove();  
+  if (overlay !== null && overlay.parentNode) {
+    overlay.parentNode.removeChild(overlay);
   }
 };
 
