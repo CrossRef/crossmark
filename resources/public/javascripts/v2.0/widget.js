@@ -207,17 +207,21 @@ document.CROSSMARK.show = function() {
   if (isIos) popupInner.style.top = window.scrollY + 'px';
 };
 
-// When loaded in a normal static document, register listeners.
-// If a document is loaded without such links, e.g. an SPA, nothing is therefore registered.
-document.addEventListener('DOMContentLoaded', function(event) {
+document.CROSSMARK.bind = function(ev) {
   var links = [].slice.call(document.querySelectorAll('[data-target=crossmark]'), 0);
   links.map(function(link) {
     link.style.cursor = 'pointer';
     document.CROSSMARK.tapEvent(link, function(event) {
       document.CROSSMARK.show();
-      
       event.preventDefault();
       event.stopPropagation();
     });
   });
-});
+}
+
+// When loaded in a normal static document, register listeners.
+// If a document is loaded without such links, e.g. an SPA, nothing is therefore registered.
+document.addEventListener('DOMContentLoaded', document.CROSSMARK.bind);
+
+// If this script was executed after DOMContentLoaded, this will do the appropriate binding.
+document.CROSSMARK.bind();
