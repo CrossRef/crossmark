@@ -68,6 +68,11 @@ document.CROSSMARK.buildQueryString = function(data) {
 document.CROSSMARK.touchStarted = false;
 document.CROSSMARK.touchArea = null;
 document.CROSSMARK.tapEvent = function(element, callback) {
+  if (element.gotEventListener === true) {
+    return;
+  }
+
+  element.gotEventListener = true;
   element.addEventListener('click', function(event) {
     if (event.ctrlKey || event.shiftKey || event.metaKey || event.which !== 1) {
       return;
