@@ -1,4 +1,4 @@
-(defproject crossmark "2.0.106"
+(defproject crossmark "2.0.107"
   :description "Crossmark Dialog Server"
   :url "https://crossmark.crossref.org"
   :license {:name "MIT License"
@@ -17,7 +17,7 @@
                  [yogthos/config "0.8"]
                  [org.clojure/core.async "0.1.338.0-5c5012-alpha"]
                  [clj-time "0.11.0"]
-                 [crossref-util "0.1.10"]
+                 [crossref-util "0.1.14"]
                  [com.google.javascript/closure-compiler "v20131014"]
                  [org.clojure/core.cache "0.6.4"]
                  [org.clojure/core.memoize "0.5.6"]
